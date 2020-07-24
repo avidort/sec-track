@@ -1,7 +1,6 @@
 import axios from 'axios';
-
-const API_KEY = 'bsdg7k7rh5retdgr8ro0';
+import config from '../config';
 
 export async function getQuote(symbol: string) {
-  return axios.get(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${API_KEY}`);
+  return axios.get(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${config.finnhubToken}`);
 }

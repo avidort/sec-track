@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as socketio from 'socket.io';
 import * as data from './data';
+import config from '../config';
 
 const app = express();
 const http = require('http').Server(app);
@@ -17,15 +18,12 @@ app.get('/', async (req: any, res: any) => {
 });
 
 io.on('connection', (socket: any) => {
-  console.log('a user connected');
-
+  console.log('Incoming connection', socket.id);
+  socket.on('get-update', () => emitData(socket));
   emitData(socket);
-
-  setTimeout(() => {
-    emitData(socket);
-  }, 5000);
 });
 
-http.listen(1337, () => {
+http.listen(config.serverPort, () => {
+  data.refresh();
   console.log('online');
 });
