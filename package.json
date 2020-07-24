@@ -5,14 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "npx concurrently -n server,client \"npm:start:server\" \"npm:start:client\" -k",
-    "start:server": "npx ts-node server/index.ts",
+    "start:server": "npx nodemon --config nodemon.json server/index.ts",
     "start:client": "cd client && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "create-react-app": "^3.4.1"
+    "create-react-app": "^3.4.1",
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.2"
   },
   "dependencies": {
     "@types/express": "^4.17.7",
@@ -20,7 +22,6 @@
     "concurrently": "^5.2.0",
     "express": "^4.17.1",
     "socket.io": "^2.3.0",
-    "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
   }
 }
