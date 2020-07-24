@@ -11,6 +11,12 @@ app.get('/', (req: any, res: any) => {
 
 io.on('connection', (socket: any) => {
   console.log('a user connected');
+
+  socket.emit('update', 'hello world after connection');
+
+  setTimeout(() => {
+    socket.emit('update', 'hello world after 5s');
+  }, 5000);
 });
 
 http.listen(1337, () => {

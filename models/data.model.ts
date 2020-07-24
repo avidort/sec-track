@@ -1,0 +1,3 @@
+interface IData {
+  helloWorld: string;
+}
