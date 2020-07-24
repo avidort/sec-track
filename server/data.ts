@@ -4,9 +4,9 @@ import { ISecurityStoredData, ISecurityData } from '../models/data.model';
 // Hardcoded dummy data, simulating a database
 const database: ISecurityStoredData[] = [{
   symbol: 'WORK',
-  description: 'Slack',
+  description: 'Slack Technologies, Inc. Class A Common Stock',
   quantity: 2,
-  purchasePrice: 1.2
+  purchasePrice: 30.378
 }];
 
 export let current: ISecurityData[] = [];
