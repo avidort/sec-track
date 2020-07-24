@@ -1,21 +1,28 @@
 import * as express from 'express';
 import * as socketio from 'socket.io';
+import * as data from './data';
 
 const app = express();
 const http = require('http').Server(app);
 const io = socketio(http);
 
-app.get('/', (req: any, res: any) => {
-  res.send('test');
+function emitData(socket: any) {
+  socket.emit('update', data.current);
+}
+
+app.get('/', async (req: any, res: any) => {
+  await data.refresh();
+  console.log(data.current);
+  res.send('data refreshed');
 });
 
 io.on('connection', (socket: any) => {
   console.log('a user connected');
 
-  socket.emit('update', 'hello world after connection');
+  emitData(socket);
 
   setTimeout(() => {
-    socket.emit('update', 'hello world after 5s');
+    emitData(socket);
   }, 5000);
 });
 
