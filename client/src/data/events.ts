@@ -1,7 +1,10 @@
 import EventEmitter from 'eventemitter3';
 import socket from './socket';
 
-const ee = new EventEmitter();
-socket.on('connection', (data: any) => {
-  console.log('data:', data);
+const emitter = new EventEmitter();
+socket.on('update', (data: any) => {
+  console.log('on update:', data);
+  emitter.emit('update', data);
 });
+
+export default emitter;

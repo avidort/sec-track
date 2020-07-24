@@ -8,17 +8,27 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core';
+import emitter from '../../data/events';
 
 const styles = {
   gain: {
-    color: "#16a237"
+    color: '#16a237',
   },
   loss: {
-    color: "#a62436"
+    color: '#a62436',
+  },
+  bold: {
+    fontWeight: 'bold',
   },
 };
 
 class SecTable extends React.Component<any, any> {
+  componentDidMount() {
+    emitter.on('update', (data) => {
+      console.log(data);
+    });
+  }
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -60,8 +70,8 @@ class SecTable extends React.Component<any, any> {
           purchasePrice: 123.23,
           currentPrice: 123.23,
           change: {
-            price: 0.00,
-            percent: 0.00,
+            price: 0.0,
+            percent: 0.0,
           },
           meta: {
             currency: 'USD',
@@ -73,7 +83,7 @@ class SecTable extends React.Component<any, any> {
   }
 
   formatSecCurrency(sec: any, number: number): string {
-    return new Intl.NumberFormat('en-US', {style: 'currency', currency: sec.meta.currency}).format(number);
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: sec.meta.currency }).format(number);
   }
 
   calculatePriceChange(firstValue: number, secondValue: number): string {
@@ -82,7 +92,7 @@ class SecTable extends React.Component<any, any> {
   }
 
   formatPercent(percent: number): string {
-    return percent.toFixed(2) + "%";
+    return percent.toFixed(2) + '%';
   }
 
   GetChangeClass(change: number) {
@@ -102,8 +112,7 @@ class SecTable extends React.Component<any, any> {
 
     if (change > 0) {
       image = 'arrow-up';
-    }
-    else if (change < 0) {
+    } else if (change < 0) {
       image = 'arrow-down';
     }
 
@@ -117,57 +126,60 @@ class SecTable extends React.Component<any, any> {
   render() {
     const { classes } = this.props;
     return (
-        <div className="table-container">
-          <TableContainer component={Paper}>
-            <Table className={classes.root} size='small' aria-label='a dense table'>
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center">Symbol</TableCell>
-                  <TableCell align="center">Description</TableCell>
-                  <TableCell align="center">QTY</TableCell>
-                  <TableCell align="center">Purchase Price</TableCell>
-                  <TableCell align="center">Current Price</TableCell>
-                  <TableCell align="center">Today's Change</TableCell>
-                  <TableCell align="center">Total Gain/Loss</TableCell>
-                </TableRow>
-              </TableHead>
+      <div className='table-container'>
+        <TableContainer component={Paper}>
+          <Table className={classes.root} size='small' aria-label='a dense table'>
+            <TableHead>
+              <TableRow>
+                <TableCell align='center'>Symbol</TableCell>
+                <TableCell align='center'>Description</TableCell>
+                <TableCell align='center'>QTY</TableCell>
+                <TableCell align='center'>Purchase Price</TableCell>
+                <TableCell align='center'>Current Price</TableCell>
+                <TableCell align='center'>Today's Change</TableCell>
+                <TableCell align='center'>Total Gain/Loss</TableCell>
+              </TableRow>
+            </TableHead>
 
-              <TableBody>
-                {this.state.secs.map((sec: any) => (
-                  <TableRow key={sec.symbol}>
-                    <TableCell component='th' scope='row' align="center">
-                      {sec.symbol}
-                    </TableCell>
-                    <TableCell align="center">{sec.description}</TableCell>
-                    <TableCell align="center">{sec.quantity}</TableCell>
-                    <TableCell align="center">{this.formatSecCurrency(sec, sec.purchasePrice)}</TableCell>
-                    <TableCell align="center">{this.formatSecCurrency(sec, sec.currentPrice)}</TableCell>
-                    <TableCell className={this.GetChangeClass(sec.change.percent)} align="center">
-                      {this.formatSecCurrency(sec, sec.change.price)} ({this.formatPercent(sec.change.percent)}) {this.GetArrowImage(sec.change.percent)}
-                    </TableCell>
-                    <TableCell className={this.GetChangeClass(sec.currentPrice - sec.purchasePrice)} align="center">
-                      {this.formatSecCurrency(sec,(sec.currentPrice - sec.purchasePrice) * sec.quantity)} ({this.calculatePriceChange(sec.currentPrice, sec.purchasePrice)}) {this.GetArrowImage(sec.currentPrice - sec.purchasePrice)}
-                    </TableCell>
-                  </TableRow>
-                ))}
-
-                <TableRow key="total">
-                  <TableCell> </TableCell>
-                  <TableCell> </TableCell>
-                  <TableCell> </TableCell>
-                  <TableCell> </TableCell>
-                  <TableCell align='center' className={classes.total}>
-                    Total
+            <TableBody>
+              {this.state.secs.map((sec: any) => (
+                <TableRow key={sec.symbol}>
+                  <TableCell component='th' scope='row' align='center'>
+                    {sec.symbol}
                   </TableCell>
-                  <TableCell align="center">{this.SumSecParemeter("purchasePrice")}</TableCell>
-                  <TableCell align="center">{this.SumSecParemeter("currentPrice")}</TableCell>
+                  <TableCell align='center'>{sec.description}</TableCell>
+                  <TableCell align='center'>{sec.quantity}</TableCell>
+                  <TableCell align='center'>{this.formatSecCurrency(sec, sec.purchasePrice)}</TableCell>
+                  <TableCell align='center'>{this.formatSecCurrency(sec, sec.currentPrice)}</TableCell>
+                  <TableCell className={this.GetChangeClass(sec.change.percent)} align='center'>
+                    {this.formatSecCurrency(sec, sec.change.price)} ({this.formatPercent(sec.change.percent)}){' '}
+                    {this.GetArrowImage(sec.change.percent)}
+                  </TableCell>
+                  <TableCell className={this.GetChangeClass(sec.currentPrice - sec.purchasePrice)} align='center'>
+                    {this.formatSecCurrency(sec, (sec.currentPrice - sec.purchasePrice) * sec.quantity)} (
+                    {this.calculatePriceChange(sec.currentPrice, sec.purchasePrice)}){' '}
+                    {this.GetArrowImage(sec.currentPrice - sec.purchasePrice)}
+                  </TableCell>
                 </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
+              ))}
+
+              <TableRow key='total'>
+                <TableCell> </TableCell>
+                <TableCell> </TableCell>
+                <TableCell> </TableCell>
+                <TableCell> </TableCell>
+                <TableCell align='center' className={classes.bold}>
+                  Total
+                </TableCell>
+                <TableCell align='center'>{this.SumSecParemeter('purchasePrice')}</TableCell>
+                <TableCell align='center'>{this.SumSecParemeter('currentPrice')}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     );
   }
 }
 
-export default withStyles(styles)(SecTable);
+export default withStyles(styles as {})(SecTable);
