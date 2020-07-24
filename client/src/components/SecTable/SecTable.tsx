@@ -88,10 +88,11 @@ class SecTable extends React.Component<any, any> {
   GetChangeClass(change: number) {
     const { classes } = this.props;
 
-    if(change > 0)
+    if (change > 0) {
       return classes.gain;
-    else if(change < 0)
+    } else if (change < 0) {
       return classes.loss;
+    }
 
     return null;
   }
@@ -99,10 +100,12 @@ class SecTable extends React.Component<any, any> {
   GetArrowImage(change: number) {
     let image = null;
 
-    if(change > 0)
+    if (change > 0) {
       image = 'arrow-up';
-    else if(change < 0)
+    }
+    else if (change < 0) {
       image = 'arrow-down';
+    }
 
     return image ? <img src={`images/${image}.png`} /> : null;
   }
@@ -156,8 +159,8 @@ class SecTable extends React.Component<any, any> {
                   <TableCell align='center' className={classes.total}>
                     Total
                   </TableCell>
-                  <TableCell align="center">{this.SumSecParemeter("change.price")}</TableCell>
-                  <TableCell align="center">{this.SumSecParemeter("currentPrice")}}</TableCell>
+                  <TableCell align="center">{this.SumSecParemeter("purchasePrice")}</TableCell>
+                  <TableCell align="center">{this.SumSecParemeter("currentPrice")}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
