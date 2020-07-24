@@ -4,11 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm run start:server",
+    "start:server": "npx ts-node server/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "create-react-app": "^3.4.1"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.7",
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
   }
 }
