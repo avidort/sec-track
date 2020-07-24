@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import App from './App';
+import App from './components/App/App';
 import * as io from 'socket.io-client';
 
 // TODO @Avidor -> @Ran: Refactor this outside into the upcoming DAL
