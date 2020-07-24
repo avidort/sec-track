@@ -1,12 +1,14 @@
 .table-container {
   display: flex;
-  justify-content: center !important;
-  align-items: center !important;
-  flex-grow: 0 !important;
-  width: 650px !important;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 5%;
+  padding: 0 10%;
+  box-sizing: border-box;
+
+  th, td {
+    font-weight: 500;
+  }
 }
 
-.table {
-  width: 650px !important;
-  flex-grow: 0 !important;
-}
