@@ -7,4 +7,8 @@ export interface ISecurityStoredData {
 
 export interface ISecurityData extends ISecurityStoredData {
   currentPrice: number;
+  change: {
+    price: number;
+    percent: number;
+  }
 }

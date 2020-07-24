@@ -17,11 +17,13 @@ export async function refresh() {
   current = await Promise.all(
     current.map(async (e) => {
       const { data } = await FinAPI.getQuote(e.symbol);
-      const currentPrice = data.c;
-
       return {
         ...e,
-        currentPrice
+        currentPrice: data.c,
+        change: {
+          price: (data.c - data.pc) * e.quantity,
+          percent: (data.c / data.pc - 1) * 100
+        }
       };
     })
   );
