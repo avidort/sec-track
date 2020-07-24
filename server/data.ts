@@ -31,7 +31,11 @@ export async function refresh() {
         currentPrice: data.c,
         change: {
           price: (data.c - data.pc) * e.quantity,
-          percent: (data.c / data.pc - 1) * 100
+          percentage: (data.c / data.pc - 1) * 100
+        },
+        total: {
+          price: (data.c - e.purchasePrice) * e.quantity,
+          percentage: (data.c / e.purchasePrice - 1) * 100
         }
       };
     })
