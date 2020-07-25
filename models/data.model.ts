@@ -15,3 +15,9 @@ interface ICountPair {
   price: number;
   percentage: number;
 }
+
+export interface IData {
+  stocks: ISecurityData[];
+  total: number;
+  total_change: number;
+}
