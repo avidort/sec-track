@@ -4,10 +4,16 @@
   align-items: center;
   width: 100%;
   margin-top: 5%;
-  padding: 0 10%;
+  padding: 0 5%;
   box-sizing: border-box;
 
   thead th {
     font-weight: bold;
+  }
+}
+
+@media(max-width: 920px) {
+  .table-container {
+    padding: 0 1%;
   }
 }

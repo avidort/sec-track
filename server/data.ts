@@ -15,6 +15,13 @@ const database: ISecurityStoredData[] = [
     description: 'Tesla Inc',
     quantity: 2,
     purchasePrice: 1201.73
+  },
+
+  {
+    symbol: 'MSFT',
+    description: 'Microsoft Corporation',
+    quantity: 70,
+    purchasePrice: 88.72
   }
 ];
 
@@ -30,7 +37,7 @@ export async function refresh() {
         ...e,
         currentPrice: data.c,
         change: {
-          price: (data.c - data.pc) * e.quantity,
+          price: (data.c - data.pc),
           percentage: (data.c / data.pc - 1) * 100
         },
         total: {

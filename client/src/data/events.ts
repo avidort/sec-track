@@ -10,16 +10,20 @@ socket.on('update', (data: ISecurityData[]) => {
     stocks: data.map((e) => ({
       ...e,
       change: {
-        price: +e.change.price.toFixed(2),
-        percentage: +e.change.percentage.toFixed(2),
+        price: Number(e.change.price.toFixed(2)),
+        percentage: Number(e.change.percentage.toFixed(2)),
       },
       total: {
-        price: +e.total.price.toFixed(2),
-        percentage: +e.total.percentage.toFixed(2),
+        price: Number(e.total.price.toFixed(2)),
+        percentage: Number(e.total.percentage.toFixed(2)),
       },
     })),
-    total: data.reduce((acc, curr) => acc + curr.total.price, 0),
-    total_change: data.reduce((acc, curr) => acc + curr.change.price, 0),
+    totalValue: data.reduce((acc, curr) => acc + (curr.currentPrice * curr.quantity), 0),
+    totalChange: data.reduce((acc, curr) => acc + curr.change.price, 0),
+    totalGL: {
+      price: data.reduce((acc, curr) => acc + curr.total.price, 0),
+      percentage: (data.reduce((acc, curr) => acc + (curr.currentPrice / curr.purchasePrice), 0) - 1) * 100
+    },
   };
   emitter.emit('update', aggregated);
 });

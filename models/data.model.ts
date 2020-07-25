@@ -18,6 +18,7 @@ interface ICountPair {
 
 export interface IData {
   stocks: ISecurityData[];
-  total: number;
-  total_change: number;
+  totalValue: number;
+  totalChange: number;
+  totalGL: ICountPair;
 }
