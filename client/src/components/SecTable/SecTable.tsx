@@ -45,9 +45,7 @@ class SecTable extends React.Component<any, { secs: IData }> {
     });
   }
 
-  formatSecCurrency(number: number): string {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(number);
-  }
+  formatSecCurrency = (number: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(number);
 
   calculatePriceChange(firstValue: number, secondValue: number): string {
     const percent = (firstValue / secondValue - 1) * 100;
