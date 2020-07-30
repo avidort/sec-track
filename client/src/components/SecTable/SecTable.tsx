@@ -40,14 +40,12 @@ class SecTable extends React.Component<any, { secs: IData }> {
   }
 
   componentDidMount() {
-    setInterval(() => emitter.emit('get-update'), 3000);
+    setInterval(() => emitter.emit('get-update'), 30 * 1000);
     emitter.on('update', (data: IData) => this.setState({ secs: data }));
   }
 
   formatCurrency(number: number): string {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
-      .format(number)
-      .replace('-', '- '); // Yes, we know.
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(number);
   }
 
   calculatePriceChange(firstValue: number, secondValue: number): string {

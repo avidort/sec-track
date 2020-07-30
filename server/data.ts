@@ -4,13 +4,6 @@ import { ISecurityStoredData, ISecurityData } from '../models/data.model';
 // Hardcoded dummy data, simulating a database
 const database: ISecurityStoredData[] = [
   {
-    symbol: 'WORK',
-    description: 'Slack Technologies, Inc. Class A Common Stock',
-    quantity: 2,
-    purchasePrice: 30.378
-  },
-
-  {
     symbol: 'TSLA',
     description: 'Tesla Inc',
     quantity: 2,
@@ -47,4 +40,6 @@ export async function refresh() {
       };
     })
   );
+
+  console.log('Data refreshed');
 }

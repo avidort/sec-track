@@ -20,5 +20,6 @@ io.on('connection', (socket: any) => {
 
 http.listen(config.serverPort, () => {
   data.refresh();
+  setInterval(() => data.refresh(), 60 * 1000);
   console.log(`Server listening on :${config.serverPort}`);
 });
